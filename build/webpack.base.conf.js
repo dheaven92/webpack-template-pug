@@ -3,7 +3,6 @@ const fs = require('fs')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { VueLoaderPlugin } = require('vue-loader')
 
 // Main const
 // see more: https://github.com/vedees/webpack-template/blob/master/README.md#main-const
@@ -49,12 +48,6 @@ module.exports = {
     rules: [{
       test: /\.pug$/,
       oneOf: [
-        // this applies to <template lang="pug"> in Vue components
-        {
-          resourceQuery: /^\?vue/,
-          use: ['pug-plain-loader']
-        },
-        // this applies to pug imports inside JavaScript
         {
           use: ['pug-loader']
         }
@@ -63,14 +56,6 @@ module.exports = {
       test: /\.js$/,
       loader: 'babel-loader',
       exclude: '/node_modules/'
-    }, {
-      test: /\.vue$/,
-      loader: 'vue-loader',
-      options: {
-        loader: {
-          scss: 'vue-style-loader!css-loader!sass-loader'
-        }
-      }
     }, {
       test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
       loader: 'file-loader',
@@ -84,7 +69,7 @@ module.exports = {
         name: '[name].[ext]'
       }
     }, {
-      test: /\.scss$/,
+      test: /\.sass$/,
       use: [
         'style-loader',
         MiniCssExtractPlugin.loader,
@@ -117,11 +102,9 @@ module.exports = {
   resolve: {
     alias: {
       '~': PATHS.src,
-      'vue$': 'vue/dist/vue.js',
     }
   },
   plugins: [
-    new VueLoaderPlugin(),
     new MiniCssExtractPlugin({
       filename: `${PATHS.assets}css/[name].[hash].css`,
     }),

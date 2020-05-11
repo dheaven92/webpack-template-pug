@@ -11,13 +11,17 @@ block content
       +item('item title', 'item descr')
       +item('item title', 'item descr')
       +item('item title', 'item descr')
-  example-component
+
+      // Image src
+      img(src='/assets/img/logo.png' alt='Image')
 
 
 block script
   script(type='text/javascript').
+
     const foo = true;
     let bar = function() {};
+
     if (foo) {
-    bar(1 + 5)
+      bar(1 + 5)
     }
